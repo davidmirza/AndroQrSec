@@ -1,0 +1,6 @@
+// Top-level build file. Versi untuk Android Studio Rabbit 1 | 2026.2.1 (AGP 7.1 - 9.4).
+// AGP 9 sudah membawa Kotlin bawaan, jadi plugin kotlin-android tidak dipasang lagi.
+plugins {
+    id 'com.android.application' version '9.4.0' apply false
+    id 'com.android.library' version '9.4.0' apply false
+}

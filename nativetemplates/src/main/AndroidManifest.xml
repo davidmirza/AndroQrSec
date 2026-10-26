@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- package dipindah ke namespace di build.gradle (wajib sejak AGP 8) -->
+  <application android:supportsRtl="true">
+
+  </application>
+
+
+</manifest>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "372660180673",
+    "firebase_url": "https://zuqrcode.firebaseio.com",
+    "project_id": "zuqrcode",
+    "storage_bucket": "zuqrcode.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:372660180673:android:701affb29fcb800c56a640",
+        "android_client_info": {
+          "package_name": "com.zarda.simpleqrcodereader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "372660180673-ugjskvj2r7c3t1vpll045dd2u2hb0gp5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVfUd-LsuZVT7KnyhanS4ZGWk6ozDbD9g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "372660180673-ugjskvj2r7c3t1vpll045dd2u2hb0gp5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

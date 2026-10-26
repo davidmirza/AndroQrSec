@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- package dipindah ke namespace di app/build.gradle (wajib sejak AGP 8) -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- [SERVER] aktifkan bila server sudah ada (lihat CATATAN_SERVER.md).
+         INTERNET sudah otomatis ikut dari play-services-ads; lokasi untuk history scan: -->
+    <!--
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    -->
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera.flash" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/dz300"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/dz300"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Checj" />
+        <activity
+            android:name=".Check"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".splash" />
+        <activity android:name=".acHasil" />
+        <activity android:name=".acBout" />
+        <activity android:name=".acthasil" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8088072060844456~9031951753" />
+
+        <activity android:name=".MainActivity" />
+    </application>
+
+</manifest>

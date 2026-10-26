@@ -1,0 +1,87 @@
+plugins {
+    id 'com.android.application'
+    // Kotlin (Check.kt) dikompilasi oleh Kotlin bawaan AGP 9 - plugin kotlin-android tidak perlu.
+    // Plugin google-services & firebase-ads dihapus: hanya dipakai untuk iklan, kini langsung play-services-ads.
+}
+
+// ---- Keystore rilis: environment variable (fallback: local.properties) ----
+// Isi dengan tools\set-keystore-env.ps1, lalu tutup & buka lagi Android Studio. Detail: CATATAN_QRSEC.md
+// Tanpa variabel ini build debug tetap jalan; build release dibuat TANPA tanda tangan.
+def localProps = new Properties()
+def localFile = rootProject.file('local.properties')
+if (localFile.exists()) {
+    localFile.withInputStream { localProps.load(it) }
+}
+def ambil = { String nama -> System.getenv(nama) ?: localProps.getProperty(nama) }
+def ksFile = ambil('ZUQR_KEYSTORE_FILE')
+def ksPassword = ambil('ZUQR_KEYSTORE_PASSWORD')
+def ksAlias = ambil('ZUQR_KEY_ALIAS')
+def ksKeyPassword = ambil('ZUQR_KEY_PASSWORD')
+def signingSiap = ksFile && ksPassword && ksAlias && ksKeyPassword && file(ksFile).exists()
+if (!signingSiap) {
+    logger.warn('ZUQR: keystore belum diset (ZUQR_KEYSTORE_FILE / ZUQR_KEYSTORE_PASSWORD / ZUQR_KEY_ALIAS / ZUQR_KEY_PASSWORD) - build release tidak ditandatangani.')
+}
+
+android {
+    namespace = 'com.zarda.simpleqrcodereader'
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = "com.zarda.simpleqrcodereader"
+        minSdk = 24
+        targetSdk = 36
+        versionCode = 12
+        versionName = '2.6'
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    signingConfigs {
+        release {
+            if (signingSiap) {
+                storeFile = file(ksFile)
+                storePassword = ksPassword
+                keyAlias = ksAlias
+                keyPassword = ksKeyPassword
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (signingSiap) {
+                signingConfig = signingConfigs.release
+            }
+        }
+    }
+    buildFeatures {
+        buildConfig = true // BuildConfig.VERSION_NAME di layar About
+    }
+}
+
+dependencies {
+    implementation project(':nativetemplates')
+
+    implementation 'androidx.appcompat:appcompat:1.7.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'com.google.android.material:material:1.12.0'
+
+    // ViewModelProviders (lifecycle-extensions) sudah dihapus Google -> ViewModelProvider
+    def lifecycle_version = "2.8.7"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    def room_version = "2.6.1"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    implementation 'com.google.android.gms:play-services-ads:25.5.0'
+    // com.google.android.play:core (crash di targetSdk 34+) -> app-update
+    implementation 'com.google.android.play:app-update:2.1.0'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+}

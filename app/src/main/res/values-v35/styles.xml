@@ -1,0 +1,11 @@
+<resources>
+    <!-- Android 15+ (targetSdk 36): tampilan edge-to-edge wajib, status/navigation bar transparan.
+         Layout memakai fitsSystemWindows, jadi area bar berlatar terang -> ikon bar dibuat gelap. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/merah</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+</resources>
